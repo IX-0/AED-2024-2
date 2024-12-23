@@ -58,4 +58,4 @@ src/TestCreateTranspose
 src/TestEccentricityMeasures
 src/TestTransitiveClosure
 
-src/vgscore*
+src/vgcore*
