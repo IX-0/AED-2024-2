@@ -47,26 +47,68 @@ GraphBellmanFordAlg* GraphBellmanFordAlgExecute(Graph* g,
   result->graph = g;
   result->startVertex = startVertex;
 
-  unsigned int numVertices = GraphGetNumVertices(g);
-
-  //
-  // TO BE COMPLETED !!
-  //
-  // CREATE AND INITIALIZE
-  // result->marked
-  // result->distance
-  // result->predecessor
-  //
-
-  // Mark all vertices as not yet visited, i.e., ZERO
+  unsigned int V = GraphGetNumVertices(g);
   
-  // No vertex has (yet) a (valid) predecessor
-  
-  // No vertex has (yet) a (valid) distance to the start vertex
-  
-  // THE ALGORTIHM TO BUILD THE SHORTEST-PATHS TREE
+  /* Initialize problem variables */
+  unsigned int* mark = (unsigned int*) malloc(V * sizeof(unsigned int)); 
+  int* pred = (int*) malloc(V * sizeof(int)); 
+  int* dist = (int*) malloc(V * sizeof(int)); 
 
-  return NULL;
+  /* Set init values */
+  for (unsigned int i = 0; i < V ; i++) {
+    mark[i] = 0;
+    pred[i] = -1;
+    dist[i] = -1;
+  }
+  dist[startVertex] = 0;
+  mark[startVertex] = 1;
+
+  unsigned int updated = 0; /* Flag to know when to quit early */
+  unsigned int degree;
+  int cost; /* Distance to current vertice */
+  
+  /* Run algorithm V - 1 times */
+  for (unsigned int j = 0; j < V - 1; j++) {
+    
+    updated = 0;
+
+    /* Run through all vertices */
+    for (unsigned int v = 0; v < V; v++) {
+      
+      /* Skip vertices with infinite cost */
+      if ((cost = dist[v]) == -1) continue;
+      
+      degree = GraphIsDigraph(g) ? GraphGetVertexOutDegree(g, v) 
+            : GraphGetVertexDegree(g, v);
+
+      /* If vertice has no edges skip it */
+      if (degree == 0) continue;
+        
+      unsigned int* nbrs = GraphGetAdjacentsTo(g, v);
+      
+      /* Run through all conected edges */
+      for (unsigned int n = 1; n < degree + 1; n++) {
+        
+        if ((dist[nbrs[n]] > cost + 1) | (dist[nbrs[n]] == -1)) {
+          dist[nbrs[n]] = cost + 1;
+          pred[nbrs[n]] = v;
+          mark[nbrs[n]] = 1;
+          updated = 1;
+        }
+      }
+      
+      free(nbrs);
+    }
+
+    /* Quit early if nothing changed */
+    if (updated == 0) break;
+  }
+
+  result->marked = mark;
+  result->predecessor = pred;
+  result->distance = dist;
+
+  return result;
 }
 
 void GraphBellmanFordAlgDestroy(GraphBellmanFordAlg** p) {
