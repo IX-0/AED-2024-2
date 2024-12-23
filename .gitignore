@@ -50,3 +50,12 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Project Specific
+src/TestAllPairsShortestDistances
+src/TestBellmanFordAlg
+src/TestCreateTranspose
+src/TestEccentricityMeasures
+src/TestTransitiveClosure
+
+src/vgscore*
