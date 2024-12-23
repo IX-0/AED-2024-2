@@ -30,8 +30,25 @@ Graph* GraphComputeTransitiveClosure(Graph* g) {
   assert(g != NULL);
   assert(GraphIsDigraph(g));
   assert(GraphIsWeighted(g) == 0);
+  
+  unsigned int V = GraphGetNumVertices(g);
 
-  // COMPLETE THE CODE
+  /* New graph */
+  Graph* ng = GraphCreate(V, 1, 0);
+  assert(ng != NULL);
 
-  return NULL;
+  for (unsigned int v = 0; v < V; v++) {
+    GraphBellmanFordAlg* bf = GraphBellmanFordAlgExecute(g, v);
+    
+    /* For each bellman ford vertice (bfv) */
+    for (unsigned int bfv = 0; bfv < V; bfv++) {
+      if ((v != bfv) & GraphBellmanFordAlgReached(bf, bfv)) {
+        GraphAddEdge(ng, v, bfv);
+      }
+    }
+
+    GraphBellmanFordAlgDestroy(&bf);
+  }
+
+  return ng;
 }
