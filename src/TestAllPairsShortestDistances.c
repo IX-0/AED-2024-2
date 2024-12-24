@@ -33,7 +33,7 @@ int main(void) {
   GraphAllPairsShortestDistancesDestroy(&distancesMatrix);
 
   // Reading a directed graph from file
-  FILE* file = fopen("DG_2.txt", "r");
+  FILE* file = fopen("../graphs/DG_2.txt", "r");
   Graph* dig03 = GraphFromFile(file);
   fclose(file);
   // Displaying in DOT format

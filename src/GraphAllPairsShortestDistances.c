@@ -35,9 +35,32 @@ GraphAllPairsShortestDistances* GraphAllPairsShortestDistancesExecute(
     Graph* g) {
   assert(g != NULL);
 
-  // COMPLETE THE CODE
+  GraphAllPairsShortestDistances* result = (GraphAllPairsShortestDistances*) 
+    malloc(sizeof(GraphAllPairsShortestDistances));
+  assert(result != NULL);
 
-  return NULL;
+  unsigned int V = GraphGetNumVertices(g); 
+
+  /* Initialize the dist matrix */
+  result->distance = (int**) malloc(V * sizeof(int*));
+  for (unsigned int i = 0; i < V; i++) {
+    result->distance[i] = (int*) calloc(V, sizeof(int)); 
+  }
+
+  result->graph = g;
+
+  for (unsigned int v = 0; v < V; v++) {
+    GraphBellmanFordAlg* bf = GraphBellmanFordAlgExecute(g, v);
+
+    for (unsigned int w = 0; w < V; w++) {
+      result->distance[v][w] = GraphBellmanFordAlgReached(bf, w) ? 
+        GraphBellmanFordAlgDistance(bf, w) : -1;
+    }
+
+    GraphBellmanFordAlgDestroy(&bf);
+  } 
+
+  return result;
 }
 
 void GraphAllPairsShortestDistancesDestroy(GraphAllPairsShortestDistances** p) {
