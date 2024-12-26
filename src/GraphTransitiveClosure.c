@@ -23,6 +23,12 @@
 #include "GraphBellmanFordAlg.h"
 #include "instrumentation.h"
 
+// Macros for counters
+#define CMP InstrCount[0] //Comparitions
+#define ITER InstrCount[1] //Loop iterations
+#define ADD InstrCount[2] //Adding
+#define MEMOPS InstrCount[3] //Array access 
+
 // Compute the transitive closure of a directed graph
 // Return the computed transitive closure as a directed graph
 // Use the Bellman-Ford algorithm
@@ -44,7 +50,8 @@ Graph* GraphComputeTransitiveClosure(Graph* g) {
     for (unsigned int bfv = 0; bfv < V; bfv++) {
       if ((v != bfv) & GraphBellmanFordAlgReached(bf, bfv)) {
         GraphAddEdge(ng, v, bfv);
-      }
+      } CMP++;
+      ITER++;
     }
 
     GraphBellmanFordAlgDestroy(&bf);
