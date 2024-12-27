@@ -132,15 +132,49 @@ Graph* GraphCreateComplete(unsigned int numVertices, int isDigraph) {
 // Create the transpose of a directed graph
 // This function should never be called on an undirected graph
 // This function should never be called on a complete graph
-Graph* GraphCreateTranspose(const Graph* g) {
-  assert(g != NULL);
-  assert(g->isDigraph);
-  assert(g->isComplete == 0);
+Graph *GraphCreateTranspose(const Graph *g) {
+  assert(g != NULL);                // The graph must exist
+  assert(g->isDigraph);             // Must be a directed graph
+  assert(g->isComplete == 0);       // Must not be a complete graph
 
-  // COMPLETE THE CODE
+  // Create the transpose graph
+  Graph *graph_transpose = GraphCreate(g->numVertices, 1, g->isWeighted);
 
-  return NULL;
+  // Iterate over the vertices of the original graph
+  List *vertices = g->verticesList;
+  ListMoveToHead(vertices);
+  for (unsigned int i = 0; i < g->numVertices; ListMoveToNext(vertices), i++) {
+    struct _Vertex *v = ListGetCurrentItem(vertices);
+    assert(v != NULL);
+
+    List *edges = v->edgesList;
+    ListMoveToHead(edges);
+
+    // Iterate over the edges of the current vertex
+    while (ListCurrentIsInside(edges)) {
+      struct _Edge *e = ListGetCurrentItem(edges);
+      assert(e != NULL);
+
+      // Reverse the direction of the edge
+      unsigned int u = i;             // Source vertex in the original
+      unsigned int v = e->adjVertex;  // Destination vertex in the original
+      double weight = e->weight;      // Edge weight, if it exists
+
+      // Add the reversed edge to the transpose graph
+      if (g->isWeighted) {
+        GraphAddWeightedEdge(graph_transpose, v, u, weight);
+      } else {
+        GraphAddEdge(graph_transpose, v, u);
+      }
+
+      ListMoveToNext(edges);
+    }
+  }
+
+  return graph_transpose;
 }
+
+
 
 void GraphDestroy(Graph** p) {
   assert(*p != NULL);
