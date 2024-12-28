@@ -26,8 +26,7 @@
 // Macros for counters
 #define CMP InstrCount[0] //Comparitions
 #define ITER InstrCount[1] //Loop iterations
-#define ADD InstrCount[2] //Adding
-#define MEMOPS InstrCount[3] //Array access
+#define MEMOPS InstrCount[2] //Array access
 
 struct _GraphBellmanFordAlg {
   unsigned int* marked;  // To mark vertices when reached for the first time
@@ -81,35 +80,40 @@ GraphBellmanFordAlg* GraphBellmanFordAlgExecute(Graph* g,
     /* Run through all vertices */
     for (unsigned int v = 0; v < V; v++) {
       
-      /* Skip vertices with infinite cost */
-      if ((cost = dist[v]) == -1) continue; CMP++;
-      
       degree = GraphIsDigraph(g) ? GraphGetVertexOutDegree(g, v) 
             : GraphGetVertexDegree(g, v);
-
+      
+      CMP++;
       /* If vertice has no edges skip it */
-      if (degree == 0) continue; CMP++;
-        
+      if (degree == 0) continue; 
+
       unsigned int* nbrs = GraphGetAdjacentsTo(g, v);
       
       /* Run through all conected edges */
       for (unsigned int n = 1; n < degree + 1; n++) {
-          
+        ITER++;
+        
+        CMP++;
+        /* Skip vertices with infinite cost */
+        if ((cost = dist[v]) == -1) continue;
+
+        CMP++;
+        /* Relax edge if needed */
         if ((dist[nbrs[n]] > cost + 1) | (dist[nbrs[n]] == -1)) {
-          dist[nbrs[n]] = cost + 1; ADD++;
+          dist[nbrs[n]] = cost + 1; 
           pred[nbrs[n]] = v;
           mark[nbrs[n]] = 1; MEMOPS += 3;
           updated = 1;
-        } CMP++;
+        } 
 
-        ITER++;
       }
       
       free(nbrs);
     }
-
+    
+    CMP++;
     /* Quit early if nothing changed */
-    if (updated == 0) break; CMP++;
+    if (updated == 0) break; 
   }
 
   result->marked = mark;

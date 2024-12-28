@@ -57,5 +57,7 @@ src/TestBellmanFordAlg
 src/TestCreateTranspose
 src/TestEccentricityMeasures
 src/TestTransitiveClosure
+src/TestTransitiveClosureComplexity
+src/TestBellmanFordComplexity
 
 src/vgcore*

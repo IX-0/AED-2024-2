@@ -42,11 +42,12 @@ Graph* GraphComputeTransitiveClosure(Graph* g) {
   /* New graph */
   Graph* ng = GraphCreate(V, 1, 0);
   assert(ng != NULL);
-
+  
+  /* For each vertice */
   for (unsigned int v = 0; v < V; v++) {
     GraphBellmanFordAlg* bf = GraphBellmanFordAlgExecute(g, v);
     
-    /* For each bellman ford vertice (bfv) */
+    /* Add edges to conected vertices */
     for (unsigned int bfv = 0; bfv < V; bfv++) {
       if ((v != bfv) & GraphBellmanFordAlgReached(bf, bfv)) {
         GraphAddEdge(ng, v, bfv);
