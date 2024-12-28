@@ -6,10 +6,10 @@
 // Graph - Using a list of adjacency lists representation
 //
 
-// Student Name :
-// Student Number :
-// Student Name :
-// Student Number :
+// Student Name : Igor Xavier
+// Student Number : 
+// Student Name : João Barreira
+// Student Number : 120054
 
 /*** COMPLETE THE GraphCreateTranspose FUNCTION ***/
 
@@ -141,33 +141,33 @@ Graph *GraphCreateTranspose(const Graph *g) {
   Graph *graph_transpose = GraphCreate(g->numVertices, 1, g->isWeighted);
 
   // Iterate over the vertices of the original graph
-  List *vertices = g->verticesList;
-  ListMoveToHead(vertices);
-  for (unsigned int i = 0; i < g->numVertices; ListMoveToNext(vertices), i++) {
-    struct _Vertex *v = ListGetCurrentItem(vertices);
-    assert(v != NULL);
+  List *vertice = g->verticesList;
+  ListMoveToHead(vertice);
+  for (unsigned int i = 0; i < g->numVertices; ListMoveToNext(vertice), i++) {
+    struct _Vertex *each_vertice = ListGetCurrentItem(vertice);
+    assert(each_vertice != NULL);
 
-    List *edges = v->edgesList;
-    ListMoveToHead(edges);
+    List *arestas = each_vertice->edgesList;
+    ListMoveToHead(arestas);
 
     // Iterate over the edges of the current vertex
-    while (ListCurrentIsInside(edges)) {
-      struct _Edge *e = ListGetCurrentItem(edges);
-      assert(e != NULL);
+    while (ListCurrentIsInside(arestas)) {
+      struct _Edge *aresta = ListGetCurrentItem(arestas);
+      assert(aresta != NULL);
 
       // Reverse the direction of the edge
-      unsigned int u = i;             // Source vertex in the original
-      unsigned int v = e->adjVertex;  // Destination vertex in the original
-      double weight = e->weight;      // Edge weight, if it exists
+      unsigned int origem = i;             // Source vertex in the original
+      unsigned int destino = aresta->adjVertex;  // Destination vertex in the original
+      double weight = aresta->weight;      // Edge weight, if it exists
 
       // Add the reversed edge to the transpose graph
       if (g->isWeighted) {
-        GraphAddWeightedEdge(graph_transpose, v, u, weight);
+        GraphAddWeightedEdge(graph_transpose, destino, origem, weight);
       } else {
-        GraphAddEdge(graph_transpose, v, u);
+        GraphAddEdge(graph_transpose, destino, origem);
       }
 
-      ListMoveToNext(edges);
+      ListMoveToNext(arestas);
     }
   }
 
