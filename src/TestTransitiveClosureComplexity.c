@@ -1,8 +1,10 @@
+// Test for Bellman-Ford algorithm
+// Igor Baltarejo 2024/2025
+
 #include <assert.h>
 #include <stdlib.h>
 
 #include "Graph.h"
-#include "GraphBellmanFordAlg.h"
 #include "GraphTransitiveClosure.h"
 #include "instrumentation.h"
 

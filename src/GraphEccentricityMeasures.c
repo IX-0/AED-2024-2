@@ -6,10 +6,10 @@
 // GraphEccentricityMeasures
 //
 
-// Student Name :
-// Student Number :
-// Student Name :
-// Student Number :
+// Student Name : Igor Baltarejo
+// Student Number : 118832
+// Student Name : João Barreira
+// Student Number : 120054
 
 /*** COMPLETE THE GraphEccentricityMeasuresCompute FUNCTION ***/
 /*** COMPLETE THE GraphGetCentralVertices FUNCTION ***/
