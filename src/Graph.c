@@ -6,8 +6,8 @@
 // Graph - Using a list of adjacency lists representation
 //
 
-// Student Name : Igor Xavier
-// Student Number : 
+// Student Name : Igor Baltarejo
+// Student Number : 118832 
 // Student Name : João Barreira
 // Student Number : 120054
 

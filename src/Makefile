@@ -6,9 +6,17 @@
 CFLAGS += -g -Wall -Wextra
 
 TARGETS = TestAllPairsShortestDistances TestBellmanFordAlg \
- TestCreateTranspose TestEccentricityMeasures TestTransitiveClosure
+ TestCreateTranspose TestEccentricityMeasures TestTransitiveClosure \
+ TestBellmanFordComplexity TestTransitiveClosureComplexity
 
 all: $(TARGETS)
+
+TestBellmanFordComplexity: TestBellmanFordComplexity.o Graph.o GraphBellmanFordAlg.o \
+ IntegersStack.o SortedList.o instrumentation.o
+
+TestTransitiveClosureComplexity: TestTransitiveClosureComplexity.o Graph.o GraphBellmanFordAlg.o \
+ GraphTransitiveClosure.o IntegersStack.o SortedList.o instrumentation.o
+
 
 TestAllPairsShortestDistances: TestAllPairsShortestDistances.o Graph.o GraphBellmanFordAlg.o \
  GraphAllPairsShortestDistances.o IntegersStack.o SortedList.o instrumentation.o

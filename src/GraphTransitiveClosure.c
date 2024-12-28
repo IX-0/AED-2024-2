@@ -6,10 +6,10 @@
 // GraphTransitiveClosure - Transitive Closure of a directed graph
 //
 
-// Student Name :
-// Student Number :
-// Student Name :
-// Student Number :
+// Student Name : Igor Baltarejo
+// Student Number : 118832
+// Student Name : João Barreira 
+// Student Number : 120054
 
 /*** COMPLETE THE GraphComputeTransitiveClosure FUNCTION ***/
 
@@ -42,11 +42,12 @@ Graph* GraphComputeTransitiveClosure(Graph* g) {
   /* New graph */
   Graph* ng = GraphCreate(V, 1, 0);
   assert(ng != NULL);
-
+  
+  /* For each vertice */
   for (unsigned int v = 0; v < V; v++) {
     GraphBellmanFordAlg* bf = GraphBellmanFordAlgExecute(g, v);
     
-    /* For each bellman ford vertice (bfv) */
+    /* Add edges to conected vertices */
     for (unsigned int bfv = 0; bfv < V; bfv++) {
       if ((v != bfv) & GraphBellmanFordAlgReached(bf, bfv)) {
         GraphAddEdge(ng, v, bfv);
