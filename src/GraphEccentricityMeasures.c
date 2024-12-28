@@ -6,13 +6,8 @@
 // GraphEccentricityMeasures
 //
 
-<<<<<<< HEAD
-// Student Name : Igor Xavier
-// Student Number : 
-=======
 // Student Name : Igor Baltarejo
 // Student Number : 118832
->>>>>>> c27436278a22f7f963d3c6f9696a24b5ea631186
 // Student Name : João Barreira
 // Student Number : 120054
 
